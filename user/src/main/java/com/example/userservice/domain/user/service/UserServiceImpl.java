@@ -1,9 +1,9 @@
-package com.example.userservice.service;
+package com.example.userservice.domain.user.service;
 
-import com.example.userservice.dto.request.CreateUserRequestDto;
-import com.example.userservice.dto.response.UserResponseDto;
-import com.example.userservice.entity.UserEntity;
-import com.example.userservice.repository.UserRepository;
+import com.example.userservice.domain.user.dto.request.CreateUserRequestDto;
+import com.example.userservice.domain.user.dto.response.UserResponseDto;
+import com.example.userservice.domain.user.entity.UserEntity;
+import com.example.userservice.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.User;
@@ -12,7 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -34,6 +38,22 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return new UserResponseDto(user);
+    }
+
+    @Override
+    public List<UserResponseDto> getUserByAll() {
+        List<UserEntity> userEntityList = userRepository.findAll();
+
+        return userEntityList.stream().map(UserResponseDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserResponseDto getUserByUserId(String userId) {
+        Optional<UserEntity> byUserId = userRepository.findByUserId(userId);
+
+        if(byUserId.isEmpty()) throw new UsernameNotFoundException("존재하지 않는 사용자입니다.");
+
+        return new UserResponseDto(byUserId.get());
     }
 
     @Override

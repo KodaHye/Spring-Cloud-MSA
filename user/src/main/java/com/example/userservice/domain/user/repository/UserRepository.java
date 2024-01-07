@@ -1,6 +1,6 @@
-package com.example.userservice.repository;
+package com.example.userservice.domain.user.repository;
 
-import com.example.userservice.entity.UserEntity;
+import com.example.userservice.domain.user.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
