@@ -1,5 +1,6 @@
 package com.example.userservice.domain.user.entity;
 
+import com.example.userservice.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
