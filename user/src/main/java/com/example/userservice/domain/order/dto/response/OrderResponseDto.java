@@ -1,4 +1,4 @@
-package com.example.userservice.domain.order.dto;
+package com.example.userservice.domain.order.dto.response;
 
 public class OrderResponseDto {
 }
