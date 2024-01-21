@@ -7,4 +7,4 @@ spring:
     config:
       server:
         git:
-          uri: file:C:/Users/kodhd/Desktop/Spring-Cloud-MSA
+          uri: file:C:/Users/kodhd/Desktop/git-local-repo
