@@ -20,4 +20,11 @@ public class UserResponseDto {
         this.name = user.getName();
         this.userId = user.getUserId();
     }
+
+    public UserResponseDto(UserEntity user, List<OrderResponseDto> orders) {
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.userId = user.getUserId();
+        this.orders = orders;
+    }
 }

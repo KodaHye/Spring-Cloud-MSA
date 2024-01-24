@@ -11,15 +11,9 @@ spring:
     password: guest
   cloud:
     config:
-      name: ecommerce
+      name: user-service
   config:
     import: optional:configserver:http://localhost:8888
-
-  datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: ${MARIA_URL}
-    username: ${MARIA_USER}
-    password: ${MARIA_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -43,3 +37,7 @@ management:
     web:
       exposure:
         include: refresh, health, beans, busrefresh
+
+logging:
+  level:
+    com.example.userservice.client: DEBUG
