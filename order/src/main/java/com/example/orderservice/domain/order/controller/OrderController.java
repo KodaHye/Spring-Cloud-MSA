@@ -6,13 +6,13 @@ import com.example.orderservice.domain.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/order-service")
 public class OrderController {
     private final OrderService orderService;
 
@@ -20,7 +20,14 @@ public class OrderController {
     public ResponseEntity<OrderResponseDto> createOrder(@PathVariable("userId") String userId,
                                                         @RequestBody OrderRequestDto orderDetails) {
 
-        OrderResponseDto returnValue = orderService.createOrder(orderDetails);
+        OrderResponseDto returnValue = orderService.createOrder(orderDetails, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(returnValue);
+    }
+
+    @GetMapping("{userId}/orders")
+    public ResponseEntity<List<OrderResponseDto>> getOrder(@PathVariable("userId") String userId) {
+        List<OrderResponseDto> result = orderService.getOrderByUserId(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

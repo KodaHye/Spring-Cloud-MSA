@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -16,8 +17,17 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     @Override
-    public OrderResponseDto createOrder(OrderRequestDto orderDetails) {
-        return null;
+    public OrderResponseDto createOrder(OrderRequestDto orderDetails, String userId) {
+        OrderEntity order = OrderEntity.builder()
+                .productId(orderDetails.getProductId())
+                .qty(orderDetails.getQty())
+                .unitPrice(orderDetails.getUnitPrice())
+                .totalPrice(orderDetails.getQty() * orderDetails.getUnitPrice())
+                .userId(userId)
+                .orderId(UUID.randomUUID().toString())
+                .build();
+
+        return new OrderResponseDto(orderRepository.save(order));
     }
 
     @Override
